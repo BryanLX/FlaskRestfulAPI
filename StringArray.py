@@ -2,15 +2,12 @@ import re
 
 ## 1.1 Is Unique
 def isUnique(string):
-  dict = {}
+  set_string = set()
   for i in string:
     if i in dict:
-      dict[i] += 1
-    else:
-      dict[i] = 1
-  for key, value in dict.items():
-    if value > 1:
       return False
+    else:
+      set_string.add(i)
   return True
 
 ## 1.2 Check Permutation
@@ -61,3 +58,26 @@ def oneAway (string_one,string_two):
         return False
       changeUsed = True
 
+## 1.6 String Compression
+def stringCompression(string):
+  result = ''
+  count = 0
+  cur_char = ''
+  pre_char = ''
+  changed = False
+  for i in range(len(string)):
+    cur_char = string[i]
+    if i == 0:
+      pre_char = string[i]
+      count = 1
+    else:
+      if cur_char == pre_char:
+        count += 1
+      else:
+        if count != 1:
+          changed = True
+        result += pre_char + str(count)
+        count = 1
+        pre_char = cur_char
+  result +=pre_char +'1'
+  return result if changed else string
